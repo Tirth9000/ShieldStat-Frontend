@@ -1,5 +1,9 @@
 "use client";
+<<<<<<< HEAD
 
+=======
+import Navbar from "@/components/Navbar";
+>>>>>>> cc6e118 (Add files via upload)
 import ScanModeCard from "@/components/ScanModeCard";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -10,6 +14,11 @@ export default function NewScan() {
 
   return (
     <>
+<<<<<<< HEAD
+=======
+      <Navbar />
+
+>>>>>>> cc6e118 (Add files via upload)
       <main className="max-w-4xl mx-auto mt-16 px-6">
         <h1 className="text-4xl font-bold text-center">
           New Reconnaissance Mission
