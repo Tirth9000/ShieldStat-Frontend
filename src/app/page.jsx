@@ -31,7 +31,7 @@ export default function HomePage() {
     <main className="min-h-screen flex flex-col items-center justify-center bg-black text-white px-6">
       <h1 className="text-5xl font-bold mb-4">iSecurify</h1>
       <Button onClick={() => router.push("/scans/new")}>
-        tart New Scan
+        Start New Scan
       </Button>
     </main>
   );
