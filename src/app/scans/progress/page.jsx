@@ -7,9 +7,9 @@ export default function ScanProgress() {
   return (
     <>
       <Navbar />
-      <main className="flex flex-col items-center mt-20 px-6">
-        <ProgressRing percent={35} />
-        <div className="mt-10 w-full max-w-3xl">
+      <main className="flex flex-col items-center mt-50 px-6">
+        <ProgressRing percent={10} />
+        <div className="mt-10 w-full max-w-2xl">
           <LiveLogs />
         </div>
       </main>

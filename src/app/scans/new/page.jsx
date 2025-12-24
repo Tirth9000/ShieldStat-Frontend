@@ -1,5 +1,5 @@
 "use client";
-import Navbar from "@/components/Navbar";
+
 import ScanModeCard from "@/components/ScanModeCard";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -10,8 +10,6 @@ export default function NewScan() {
 
   return (
     <>
-      <Navbar />
-
       <main className="max-w-4xl mx-auto mt-16 px-6">
         <h1 className="text-4xl font-bold text-center">
           New Reconnaissance Mission
