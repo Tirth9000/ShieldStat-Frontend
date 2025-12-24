@@ -194,7 +194,7 @@ export default function Navbar() {
               </button>
               {/* Updated to professional placeholder */}
               <span className="text-sm text-gray-400 font-medium">
-                Chutiye@Chutiye.com
+                Datt@gmail.com
               </span>
               <div className="w-6"></div> {/* Spacer for centering */}
             </div>
@@ -227,7 +227,7 @@ export default function Navbar() {
             </div>
 
             {/* Greeting */}
-            <h3 className="text-xl font-medium mb-6">Chutiye tu Jana</h3>
+            <h3 className="text-xl font-medium mb-6">Datt Bhatt</h3>
 
             {/* Manage Account Button */}
             <button className="text-[#8ab4f8] border border-[#5f6368] rounded-full px-6 py-2 text-sm font-medium hover:bg-[#303134] transition-colors mb-6 w-fit">
