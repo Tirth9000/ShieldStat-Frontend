@@ -13,12 +13,11 @@ export default function Home() {
 =======
 import { useEffect, useState } from "react";
 import Loader from "@/components/Loader";
-import Button from "@/components/Button";
-import { useRouter } from "next/navigation";
+import Navbar from "@/components/Navbar";
+import DashboardPage from "./dashboard/page";
 
 export default function HomePage() {
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
 
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 2500);
@@ -28,11 +27,11 @@ export default function HomePage() {
   if (loading) return <Loader />;
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-black text-white px-6">
-      <h1 className="text-5xl font-bold mb-4">iSecurify</h1>
-      <Button onClick={() => router.push("/scans/new")}>
-        Start New Scan
-      </Button>
+    <main className="min-h-screen w-full bg-black text-white">
+      <Navbar />
+      <div className="pt-24 px-6">
+        <DashboardPage />
+      </div>
     </main>
   );
 }

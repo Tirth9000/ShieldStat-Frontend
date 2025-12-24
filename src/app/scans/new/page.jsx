@@ -1,9 +1,13 @@
 "use client";
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 import Navbar from "@/components/Navbar";
 >>>>>>> cc6e118 (Add files via upload)
+=======
+
+>>>>>>> dc323aa (nev and assessment)
 import ScanModeCard from "@/components/ScanModeCard";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -15,10 +19,13 @@ export default function NewScan() {
   return (
     <>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       <Navbar />
 
 >>>>>>> cc6e118 (Add files via upload)
+=======
+>>>>>>> dc323aa (nev and assessment)
       <main className="max-w-4xl mx-auto mt-16 px-6">
         <h1 className="text-4xl font-bold text-center">
           New Reconnaissance Mission

@@ -1,6 +1,10 @@
 import axios from 'axios';
 
+<<<<<<< HEAD
 // API Configuration & Calls
+=======
+// Create an Axios instance with your backend base URL
+>>>>>>> dc323aa (nev and assessment)
 const apiClient = axios.create({
   baseURL: 'http://localhost:5000',
   headers: {
@@ -8,6 +12,7 @@ const apiClient = axios.create({
   },
 });
 
+<<<<<<< HEAD
 apiClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -20,16 +25,26 @@ apiClient.interceptors.request.use(
 );
 
 export const api = {
+=======
+// Define your API calls
+export const api = {
+  // Fetch all questions
+>>>>>>> dc323aa (nev and assessment)
   getQuestions: async () => {
     const response = await apiClient.get('/api/questions');
     return response.data;
   },
 
+<<<<<<< HEAD
+=======
+  // Submit assessment answers
+>>>>>>> dc323aa (nev and assessment)
   submitAssessment: async (payload) => {
     const response = await apiClient.post('/api/assess', payload);
     return response.data;
   },
 
+<<<<<<< HEAD
   getHistory: async () => {
     const response = await apiClient.get('/api/assess/history');
     return response.data;
@@ -50,6 +65,13 @@ export const api = {
     return response.data;
   },
 
+=======
+  // Get history for the dashboard
+  getHistory: async () => {
+    const response = await apiClient.get('/api/assess/history');
+    return response.data;
+  }
+>>>>>>> dc323aa (nev and assessment)
 };
 
 export default api;

@@ -10,6 +10,7 @@
   },
   "dependencies": {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "@heroicons/react": "^2.2.0",
     "axios": "^1.13.2",
     "lucide-react": "^0.562.0",
@@ -20,11 +21,21 @@
     "react-dom": "19.2.1",
     "recharts": "^3.6.0"
 =======
+=======
+    "@heroicons/react": "^2.2.0",
+    "axios": "^1.13.2",
+>>>>>>> dc323aa (nev and assessment)
     "mongoose": "^9.0.2",
     "next": "16.0.10",
+    "path": "^0.12.7",
     "react": "19.2.1",
+<<<<<<< HEAD
     "react-dom": "19.2.1"
 >>>>>>> cc6e118 (Add files via upload)
+=======
+    "react-dom": "19.2.1",
+    "recharts": "^3.6.0"
+>>>>>>> dc323aa (nev and assessment)
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

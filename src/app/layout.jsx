@@ -12,8 +12,12 @@ export const metadata = {
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
+<<<<<<< HEAD
   title: "iSecurify",
 >>>>>>> cc6e118 (Add files via upload)
+=======
+  title: "Cyberguard",
+>>>>>>> dc323aa (nev and assessment)
   description: "Cyber Reconnaissance & Risk Visibility Platform",
 };
 

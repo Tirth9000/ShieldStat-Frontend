@@ -4,6 +4,10 @@ import React, { useState, useEffect } from "react";
 import { api } from "@/services/api";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/Loader";
+<<<<<<< HEAD
+=======
+import Navbar from "@/components/Navbar";
+>>>>>>> dc323aa (nev and assessment)
 
 // Simplified Progress Bar
 const ProgressBar = ({ current, total }) => {
@@ -99,6 +103,11 @@ const SecurityAssessment = () => {
   const selectedOptionIndex = answers[currentQuestion._id];
 
   return (
+<<<<<<< HEAD
+=======
+    <>
+      <Navbar />
+>>>>>>> dc323aa (nev and assessment)
       <main className="min-h-screen bg-[#0f1115] flex flex-col items-center justify-center p-6 text-white">
         
         {/* Warning Modal */}
@@ -184,6 +193,10 @@ const SecurityAssessment = () => {
           </div>
         </div>
       </main>
+<<<<<<< HEAD
+=======
+    </>
+>>>>>>> dc323aa (nev and assessment)
   );
 };
 
