@@ -10,9 +10,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className="no-scrollbar">
       <body
-        className={`${inter.className} bg-black text-white antialiased`}
+        className={`${inter.className} bg-black text-white antialiased no-scrollbar`}
       >
         {children}
       </body>

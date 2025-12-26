@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// Create an Axios instance with your backend base URL
+// API Configuration & Calls
 const apiClient = axios.create({
   baseURL: 'http://localhost:5000',
   headers: {
@@ -8,25 +8,48 @@ const apiClient = axios.create({
   },
 });
 
-// Define your API calls
+apiClient.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 export const api = {
-  // Fetch all questions
   getQuestions: async () => {
     const response = await apiClient.get('/api/questions');
     return response.data;
   },
 
-  // Submit assessment answers
   submitAssessment: async (payload) => {
     const response = await apiClient.post('/api/assess', payload);
     return response.data;
   },
 
-  // Get history for the dashboard
   getHistory: async () => {
     const response = await apiClient.get('/api/assess/history');
     return response.data;
-  }
+  },
+
+  login: async (credentials) => {
+    const response = await apiClient.post('/api/auth/login', credentials);
+    return response.data;
+  },
+
+  register: async (userInfo) => {
+    const response = await apiClient.post('/api/auth/register', userInfo);
+    return response.data;
+  },
+
+  getProfile: async (_id) => {
+    const response = await apiClient.get(`/api/auth/profile/${_id}`);
+    return response.data;
+  },
+
 };
 
 export default api;

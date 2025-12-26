@@ -40,25 +40,25 @@ const DashboardHistory = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // === FIX: Handle BOTH Letters (New) and Words (Old) ===
+  // Function to get color classes based on risk level
   const getLevelColor = (grade) => {
     switch (grade) {
       case "A": 
-      case "Secure": // Fix for old data
+      case "Secure":
         return "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"; // Green
         
       case "B": 
         return "bg-blue-500/10 text-blue-400 border-blue-500/20";       // Blue
         
       case "C": 
-      case "Moderate": // Fix for old data
+      case "Moderate": 
         return "bg-yellow-500/10 text-yellow-400 border-yellow-500/20"; // Yellow
         
       case "D": 
         return "bg-orange-500/10 text-orange-400 border-orange-500/20"; // Orange
         
       case "F": 
-      case "Critical": // Fix for old data
+      case "Critical":
         return "bg-red-500/10 text-red-400 border-red-500/20";           // Red
         
       default:  
@@ -66,7 +66,7 @@ const DashboardHistory = () => {
     }
   };
 
-  // === FIX: Handle Icons for both formats ===
+  // Function to get icon based on risk level
   const getLevelIcon = (grade) => {
     switch (grade) {
       case "A": 
@@ -170,7 +170,7 @@ const DashboardHistory = () => {
 
                 {/* Score */}
                 <div className="col-span-2 font-bold text-xl text-white text-center">
-                  {item.percentage}<span className="text-gray-600 text-sm font-normal">%</span>
+                  {item.score}
                 </div>
 
                 {/* Grade Badge */}
