@@ -99,7 +99,7 @@ export default function Navbar() {
               </button>
               {/* Updated to professional placeholder */}
               <span className="text-sm text-gray-400 font-medium">
-                Chutiye@Chutiye.com
+                Datt@gmail.com
               </span>
               <div className="w-6"></div> {/* Spacer for centering */}
             </div>
