@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import Navbar from "@/components/Navbar";
+
 import Loader from "@/components/Loader";
 import { api } from "@/services/api";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
@@ -92,13 +92,7 @@ const AssessmentReport = ({ id: propId }) => {
 
   if (loading) return <Loader message="Loading Report Data..." />;
 
-  // if there is no data found for the given id only see navbar
-  if (!data)
-    return (
-      <>
-        { <Navbar />}
-      </>
-    );
+
 
   const riskColors = getRiskColors(data.risk_level);
 
@@ -109,9 +103,6 @@ const AssessmentReport = ({ id: propId }) => {
 
   return (
     <>
-      {/* Only show Navbar if we are on the dedicated page (not embedded) */}
-      {!propId && <Navbar />}
-
       <div
         className={`bg-[#0f1115] text-white font-sans ${
           propId ? "mb-10" : "min-h-screen p-6"

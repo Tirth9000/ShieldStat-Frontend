@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { api } from "@/services/api";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/Loader";
-import Navbar from "@/components/Navbar";
 
 // Simplified Progress Bar
 const ProgressBar = ({ current, total }) => {
@@ -100,8 +99,6 @@ const SecurityAssessment = () => {
   const selectedOptionIndex = answers[currentQuestion._id];
 
   return (
-    <>
-      <Navbar />
       <main className="min-h-screen bg-[#0f1115] flex flex-col items-center justify-center p-6 text-white">
         
         {/* Warning Modal */}
@@ -187,7 +184,6 @@ const SecurityAssessment = () => {
           </div>
         </div>
       </main>
-    </>
   );
 };
 

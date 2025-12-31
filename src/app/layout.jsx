@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-
+import Navbar from "@/components/Navbar";
+import { AuthProvider } from "@/app/context/AuthContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -14,7 +15,10 @@ export default function RootLayout({ children }) {
       <body
         className={`${inter.className} bg-black text-white antialiased no-scrollbar`}
       >
-        {children}
+        <AuthProvider>
+          <Navbar />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

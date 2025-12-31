@@ -3,69 +3,86 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import UserProfileDropdown from "./UserProfileDropdown";
+import { useEffect, useState } from "react";
+import UserProfileDropdown from "./UserProfileDropdown"; 
+import { useAuth } from "@/app/context/AuthContext";
 
 export default function Navbar() {
+  const { user } = useAuth(); 
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
 
-  const isActive = (path) =>
-    pathname === path || (path === "/Dashboard" && pathname === "/");
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const isActive = (path) => pathname === path;
 
   return (
-    <nav className="fixed top-0 left-0 z-50 w-full flex items-center justify-between px-8 py-4 border-b border-white/20 bg-black/80 backdrop-blur-md">
-      {/* Logo Section */}
-      <div className="flex items-center gap-3 text-lg font-bold tracking-wide text-white">
-        <Image
-          src="/assets/favicon.png"
-          alt="Logo"
-          width={32}
-          height={32}
-          priority
-        />
-        <span>
-          <span className="text-white">Cyberguard</span>
+    <nav
+      className={`fixed top-0 left-0 z-50 w-full flex items-center justify-between px-6 md:px-12 py-4 transition-all duration-300 ${
+        scrolled
+          ? "border-b border-white/10 bg-[#0d0d1a]/80 backdrop-blur-xl shadow-lg"
+          : "border-transparent bg-transparent"
+      }`}
+    >
+      {/* LEFT: LOGO */}
+      <Link href="/" className="flex items-center gap-3 group">
+        <div className="relative">
+          <Image
+            src="/assets/favicon.png"
+            alt="Cyberguard Logo"
+            width={32}
+            height={32}
+            className="group-hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] transition-all"
+          />
+        </div>
+        <span className="text-lg font-bold tracking-wide text-white group-hover:text-gray-200 transition-colors">
+          Cyberguard
         </span>
+      </Link>
+
+      {/* MIDDLE: NAVIGATION LINKS */}
+      <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
+        {user ? (
+          <>
+            {["Dashboard", "Scans", "Reports", "Assessments"].map((item) => (
+              <Link
+                key={item}
+                href={`/${item.toLowerCase()}`}
+                className={`transition-colors hover:text-white ${
+                  isActive(`/${item.toLowerCase()}`) ? "text-blue-500" : ""
+                }`}
+              >
+                {item}
+              </Link>
+            ))}
+          </>
+        ) : (
+          <>
+            <Link href="/webScore" className="hover:text-white transition-colors">All Web Score</Link>
+            <Link href="#features" className="hover:text-white transition-colors">Features</Link>
+            <Link href="#pricing" className="hover:text-white transition-colors">Pricing</Link>
+          </>
+        )}
       </div>
 
-      <div className="flex items-center justify-center gap-12">
-        {/* Navigation Links */}
-      <div className="flex gap-8 text-sm font-medium text-gray-400">
-        <Link
-          href="/dashboard"
-          className={`transition-colors hover:text-white ${
-            isActive("/dashboard") ? "text-[#1514d0]" : ""
-          }`}
-        >
-          Dashboard
-        </Link>
-        <Link
-          href="/scans"
-          className={`transition-colors hover:text-white ${
-            isActive("/scans") ? "text-[#1514d0]" : ""
-          }`}
-        >
-          Scans
-        </Link>
-        <Link
-          href="/reports"
-          className={`transition-colors hover:text-white ${
-            isActive("/reports") ? "text-[#1514d0]" : ""
-          }`}
-        >
-          Reports
-        </Link>
-        <Link
-          href="/assessments"
-          className={`transition-colors hover:text-white ${
-            isActive("/assessments") ? "text-[#1514d0]" : ""
-          }`}
-        >
-          Assessments
-        </Link>
-      </div>
-
-      {/* User / Profile Section*/}
-      <UserProfileDropdown />
+      {/* RIGHT: ACTION BUTTON */}
+      <div className="flex items-center gap-4">
+        {user ? (
+          <UserProfileDropdown />
+        ) : (
+          <Link href="/login">
+            <button className="group relative px-6 py-2 rounded-full bg-white/5 border border-white/10 overflow-hidden hover:border-blue-500/50 transition-all cursor-pointer">
+              <div className="absolute inset-0 w-0 bg-blue-600/20 transition-all duration-[250ms] ease-out group-hover:w-full" />
+              <span className="relative text-sm font-semibold text-white group-hover:text-blue-100">
+                Login / Sign Up
+              </span>
+            </button>
+          </Link>
+        )}
       </div>
     </nav>
   );
