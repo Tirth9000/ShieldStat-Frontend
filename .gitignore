@@ -1,14 +1,10 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 .vscode/
 DS_Store
 
 =======
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
->>>>>>> e492c12 (Update .gitignore to include additional files and directories for better exclusion management)
 # dependencies
 /node_modules
 /.pnp
@@ -48,9 +44,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-<<<<<<< HEAD
-=======
 node_modules
->>>>>>> 37ca259 (Remove peer dependencies from package-lock.json and add .gitignore to exclude node_modules)
-=======
->>>>>>> e492c12 (Update .gitignore to include additional files and directories for better exclusion management)
