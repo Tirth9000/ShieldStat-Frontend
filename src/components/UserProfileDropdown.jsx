@@ -1,42 +1,14 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import useHandleLogout from "@/services/logout.js";
-import api from "@/services/api.js";
+import { useAuth } from "@/app/context/AuthContext";
 
 export default function UserProfileDropdown() {
-  const [profile, setProfile] = useState(null);
+  const { logout, user } = useAuth(); // Keeping your Context logic
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const handleLogout = useHandleLogout();
 
-  // --- Data Fetching ---
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const storedUser = localStorage.getItem("user");
-        if (!storedUser) return;
-
-        const parsedUser = JSON.parse(storedUser);
-        setProfile(parsedUser); // Show local data immediately
-
-        if (parsedUser?._id) {
-          try {
-            const data = await api.getProfile(parsedUser._id);
-            setProfile(data.user || data);
-          } catch (err) {
-            console.warn("Background sync failed, keeping local data");
-          }
-        }
-      } catch (error) {
-        console.error("Error loading user context:", error);
-      }
-    };
-
-    fetchUserData();
-  }, []);
-
-  // --- Click Outside Logic ---
+  // Click Outside Logic
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -47,14 +19,14 @@ export default function UserProfileDropdown() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // first letter of username
+  // First letter of username helper
   const getInitials = (name) => {
     return name ? name.charAt(0).toUpperCase() : "U";
   };
 
   return (
     <div className="relative" ref={dropdownRef}>
-      {/* Trigger Button*/}
+      {/* Trigger Button */}
       <button
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         className={`relative h-9 w-9 rounded-full bg-gradient-to-br from-indigo-600 to-violet-600 flex items-center justify-center text-sm font-bold text-white shadow-inner transition-all duration-200 focus:outline-none ${
@@ -63,12 +35,13 @@ export default function UserProfileDropdown() {
             : "hover:ring-2 hover:ring-gray-600"
         }`}
       >
-        {getInitials(profile?.username)}
+        {getInitials(user?.username)}
       </button>
 
-      {/* Dropdown Menu */}
+      {/* Dropdown Menu (The UI you liked) */}
       {isDropdownOpen && (
         <div className="absolute right-0 top-12 w-80 bg-[#1e1e20] rounded-3xl shadow-2xl border border-white/10 flex flex-col items-center text-gray-100 z-50 overflow-hidden animate-in fade-in zoom-in-95 slide-in-from-top-2 duration-200">
+          
           {/* Close Button (X) */}
           <button
             onClick={() => setIsDropdownOpen(false)}
@@ -94,18 +67,18 @@ export default function UserProfileDropdown() {
           <div className="flex flex-col items-center pt-10 pb-6 px-6 w-full text-center">
             {/* Large Profile Circle */}
             <div className="h-20 w-20 rounded-full bg-gradient-to-br from-indigo-600 to-violet-600 flex items-center justify-center text-3xl font-bold text-white shadow-inner mb-4 ring-4 ring-[#2a2a2c]">
-              {getInitials(profile?.username)}
+              {getInitials(user?.username)}
             </div>
 
             {/* Name & Email */}
             <h3 className="text-lg font-semibold tracking-tight text-white">
-              Hello, {profile?.username || "Guest"}!
+              Hello, {user?.username || "Guest"}!
             </h3>
             <p className="text-sm text-gray-400 mt-1 font-medium truncate max-w-full px-4">
-              {profile?.email || "No email linked"}
+              {user?.email || "No email linked"}
             </p>
 
-            {/* enter data after payment is integral */}
+            {/* Free Plan Badge Feature */}
             <div className="mt-4">
               <span className="px-3 py-1 rounded-full border border-gray-600 text-xs text-gray-400 font-medium">
                 Free Plan
@@ -119,7 +92,7 @@ export default function UserProfileDropdown() {
           {/* Logout Section */}
           <div className="w-full bg-[#252527] p-5">
             <button
-              onClick={handleLogout}
+              onClick={logout}
               className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-2xl bg-[#2d2d30] hover:bg-[#353538] text-gray-200 hover:text-white transition-all duration-200 group"
             >
               <svg
