@@ -9,9 +9,13 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/noto-sans": "^5.2.10",
     "@heroicons/react": "^2.2.0",
     "axios": "^1.13.2",
+    "link": "^2.1.1",
     "lucide-react": "^0.562.0",
+    "material-symbols": "^0.40.2",
     "mongoose": "^9.0.2",
     "next": "16.0.10",
     "path": "^0.12.7",
