@@ -6,8 +6,8 @@ import Link from "next/link";
 import { Mail, Lock, User, UserPlus, Eye, EyeOff } from "lucide-react";
 import api from "@/services/api";
 import Image from "next/image";
-import { MatrixContext } from "../context/MatrixContext";
-import { useAuth } from "@/app/context/AuthContext"; // <--- 1. Import Auth Hook
+import { MatrixContext } from "../../context/MatrixContext";
+import { useAuth } from "@/context/AuthContext"; // <--- 1. Import Auth Hook
 
 export default function RegisterPage() {
   const { login } = useAuth(); // <--- 2. Get login function from Context

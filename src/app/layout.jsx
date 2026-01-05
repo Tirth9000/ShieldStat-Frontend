@@ -1,8 +1,9 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
-import { AuthProvider } from "@/app/context/AuthContext";
+import { AuthProvider } from "@/context/AuthContext";
 const inter = Inter({ subsets: ["latin"] });
+import 'material-symbols';
 
 export const metadata = {
   title: "Cyberguard",

@@ -1,5 +1,5 @@
 import React from 'react'
-import { MatrixContext } from "@/app/context/MatrixContext"
+import { MatrixContext } from "@/context/MatrixContext"
  
 const webScore = () => {
   return (

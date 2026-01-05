@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useAuth } from "@/app/context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 
 export default function UserProfileDropdown() {
   const { logout, user } = useAuth(); // Keeping your Context logic
