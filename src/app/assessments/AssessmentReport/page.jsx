@@ -7,7 +7,7 @@ import Loader from "@/components/Loader";
 import { api } from "@/services/api";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
-// === FIX: Updated Color Theme to handle Letters (A, B, C, D, F) ===
+// convert in ABCDF
 const getRiskColors = (risk) => {
   switch (risk) {
     case "A":
@@ -92,7 +92,10 @@ const AssessmentReport = ({ id: propId }) => {
 
   if (loading) return <Loader message="Loading Report Data..." />;
 
-
+  // for that if data is not exist
+  if (!data) {
+    return <></>;
+  }
 
   const riskColors = getRiskColors(data.risk_level);
 
@@ -115,7 +118,7 @@ const AssessmentReport = ({ id: propId }) => {
                 Security Assessment Report
               </h1>
               <p className="text-gray-600 text-sm mt-1">
-               Date: {new Date(data.createdAt).toLocaleDateString()}
+                Date: {new Date(data.createdAt).toLocaleDateString()}
               </p>
             </div>
 
