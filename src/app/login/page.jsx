@@ -29,8 +29,6 @@ export default function LoginPage() {
 
     try {
       const res = await api.login(formData);
-      
-      // ⚡ 3. Use Context Login Function
       // This handles localStorage, state update (Navbar), and redirection automatically
       login(res.token, res.user || res);
 
