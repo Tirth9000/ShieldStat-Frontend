@@ -92,6 +92,11 @@ const AssessmentReport = ({ id: propId }) => {
 
   if (loading) return <Loader message="Loading Report Data..." />;
 
+  if(!data){
+    return(
+      <></>
+    )
+  }
 
 
   const riskColors = getRiskColors(data.risk_level);
