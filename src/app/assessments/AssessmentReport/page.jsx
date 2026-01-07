@@ -92,7 +92,8 @@ const AssessmentReport = ({ id: propId }) => {
 
   if (loading) return <Loader message="Loading Report Data..." />;
 
-
+  // If no data, return null to preserve original page layout
+  if (!data) return null;
 
   const riskColors = getRiskColors(data.risk_level);
 
@@ -104,9 +105,8 @@ const AssessmentReport = ({ id: propId }) => {
   return (
     <>
       <div
-        className={`bg-[#0f1115] text-white font-sans ${
-          propId ? "mb-10" : "min-h-screen p-6"
-        }`}
+        className={`bg-[#0f1115] text-white font-sans ${propId ? "mb-10" : "min-h-screen p-6"
+          }`}
       >
         <div className="max-w-6xl mx-auto">
           <div className="flex justify-between items-center mb-10 border-b border-gray-800 pb-6">
@@ -115,7 +115,7 @@ const AssessmentReport = ({ id: propId }) => {
                 Security Assessment Report
               </h1>
               <p className="text-gray-600 text-sm mt-1">
-               Date: {new Date(data.createdAt).toLocaleDateString()}
+                Date: {new Date(data.createdAt).toLocaleDateString()}
               </p>
             </div>
 

@@ -9,8 +9,7 @@ export default function Loader() {
       <div className="relative flex items-center justify-center">
 
         {/* Outer rotating ring */}
-        <div className="absolute w-48 h-48 rounded-full border-4 border-transparent
-                        border-t-blue-600 border-b-purple-600 animate-spin" />
+        <div className="absolute w-48 h-48 rounded-full border-4 border-transparent border-t-blue-600 border-b-purple-600 animate-spin" />
 
         {/* Inner static ring */}
         <div className="absolute w-40 h-40 rounded-full border border-white/20" />
