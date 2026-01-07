@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { MatrixContext } from "@/context/MatrixContext"; // Assuming this handles your canvas background
+import { MatrixContext } from "@/context/MatrixContext";
 
 const NotFound = () => {
   return (
@@ -32,7 +32,7 @@ const NotFound = () => {
               </p>
             </div>
 
-            {/* Improved Button Section */}
+            {/* Button Section */}
             <div className="mt-10 flex items-center justify-center">
               <Link href="/" className="group relative inline-block focus:outline-none focus:ring">
                 <span className="absolute inset-0 translate-x-1.5 translate-y-1.5 bg-indigo-500 transition-transform group-hover:translate-x-0 group-hover:translate-y-0 rounded-md"></span>
@@ -42,7 +42,6 @@ const NotFound = () => {
                 </span>
               </Link>
             </div>
-            
           </div>
         </div>
       </main>

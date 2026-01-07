@@ -7,7 +7,7 @@ import Loader from "@/components/Loader";
 import { api } from "@/services/api";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
-// === FIX: Updated Color Theme to handle Letters (A, B, C, D, F) ===
+// convert in ABCDF
 const getRiskColors = (risk) => {
   switch (risk) {
     case "A":
@@ -92,8 +92,15 @@ const AssessmentReport = ({ id: propId }) => {
 
   if (loading) return <Loader message="Loading Report Data..." />;
 
+<<<<<<< HEAD
   // If no data, return null to preserve original page layout
   if (!data) return null;
+=======
+  // for that if data is not exist
+  if (!data) {
+    return <></>;
+  }
+>>>>>>> cb45c6ea9a11ee767c72de6ff27931edb56b345a
 
   const riskColors = getRiskColors(data.risk_level);
 

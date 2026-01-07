@@ -7,10 +7,10 @@ import { Mail, Lock, User, UserPlus, Eye, EyeOff } from "lucide-react";
 import api from "@/services/api";
 import Image from "next/image";
 import { MatrixContext } from "../../context/MatrixContext";
-import { useAuth } from "@/context/AuthContext"; // <--- 1. Import Auth Hook
+import { useAuth } from "@/context/AuthContext"; 
 
 export default function RegisterPage() {
-  const { login } = useAuth(); // <--- 2. Get login function from Context
+  const { login } = useAuth(); 
   const router = useRouter();
   const [formData, setFormData] = useState({
     username: "",
@@ -63,7 +63,6 @@ export default function RegisterPage() {
       console.log("Submitting Payload:", apiPayload);
       const res = await api.register(apiPayload);
 
-      // ⚡ 3. Check for Token (Auto-Login vs Redirect)
       if (res.token) {
         // If API returns token, log them in immediately (Updates Navbar)
         login(res.token, res.user || res); 
