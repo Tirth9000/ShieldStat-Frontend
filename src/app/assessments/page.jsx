@@ -169,18 +169,18 @@ const DashboardHistory = () => {
 
               {/* Score */}
               <div className="col-span-2 font-bold text-xl text-white text-center">
-                {item.score}
+                {item.summary.score}
               </div>
 
               {/* Grade Badge */}
               <div className="col-span-2 flex justify-center">
                 <div
                   className={`flex items-center gap-2 px-3 py-1 rounded-full border ${getLevelColor(
-                    item.risk_level
+                    item.summary.risk_level
                   )}`}
                 >
-                  {getLevelIcon(item.risk_level)}
-                  <span className="font-bold">{item.risk_level}</span>
+                  {getLevelIcon(item.summary.risk_level)}
+                  <span className="font-bold">{item.summary.risk_level}</span>
                 </div>
               </div>
 
