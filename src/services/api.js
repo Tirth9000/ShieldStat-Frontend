@@ -32,6 +32,7 @@ export const api = {
 
   getHistory: async () => {
     const response = await apiClient.get('/api/assess/history');
+    // console.log("this from history", response);
     return response.data;
   },
 
@@ -46,7 +47,7 @@ export const api = {
   },
 
   getProfile: async (_id) => {
-    const response = await apiClient.get(`/api/auth/profile/${_id}`);
+    const response = await apiClient.get(`/api/auth/profile/${_id}`);  
     return response.data;
   },
 
