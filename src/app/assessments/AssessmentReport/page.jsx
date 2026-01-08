@@ -93,12 +93,18 @@ const AssessmentReport = ({ id: propId }) => {
 
   if (loading) return <Loader message="Loading Report Data..." />;
 
-  // for that if data is not exist
-  if (!data) {
-    return <></>;
+  if(!data){
+    return(
+      <></>
+    )
   }
 
+<<<<<<< HEAD
   const riskColors = getRiskColors(data.summary.risk_level);
+=======
+
+  const riskColors = getRiskColors(data.risk_level);
+>>>>>>> 8237c462af3b6c71f9ec9ec8bb39c2b94db6ea18
 
   const overallChartData = [
     { name: "Score Achieved", value: data.summary.score },
