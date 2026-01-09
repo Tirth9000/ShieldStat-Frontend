@@ -1,9 +1,18 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import logo from "../../public/assets/favicon.png";
 
 export default function Loader() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
       <div className="relative flex items-center justify-center">
@@ -18,7 +27,7 @@ export default function Loader() {
         <div className="relative z-10 animate-pulse">
           <Image
             src={logo}
-            alt="iSecurify Logo"
+            alt="Logo"
             width={90}
             height={90}
             priority

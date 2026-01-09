@@ -92,15 +92,8 @@ const AssessmentReport = ({ id: propId }) => {
 
   if (loading) return <Loader message="Loading Report Data..." />;
 
-<<<<<<< HEAD
   // If no data, return null to preserve original page layout
   if (!data) return null;
-=======
-  // for that if data is not exist
-  if (!data) {
-    return <></>;
-  }
->>>>>>> cb45c6ea9a11ee767c72de6ff27931edb56b345a
 
   const riskColors = getRiskColors(data.risk_level);
 
