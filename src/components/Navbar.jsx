@@ -76,7 +76,7 @@ export default function Navbar() {
         ) : (
           <Link href="/login">
             <button className="group relative px-6 py-2 rounded-full bg-white/5 border border-white/10 overflow-hidden hover:border-blue-500/50 transition-all cursor-pointer">
-              <div className="absolute inset-0 w-0 bg-blue-600/20 transition-all duration-[250ms] ease-out group-hover:w-full" />
+              <div className="absolute inset-0 w-0 bg-blue-600/20 transition-all duration-250 ease-out group-hover:w-full" />
               <span className="relative text-sm font-semibold text-white group-hover:text-blue-100">
                 Login / Sign Up
               </span>

@@ -15,7 +15,36 @@ import {
   ExclamationTriangleIcon,
   XCircleIcon,
   ChevronRightIcon,
+  ArrowDownTrayIcon,
 } from "@heroicons/react/24/outline";
+
+import { MatrixContext } from "@/context/MatrixContext";
+
+// Helper for colors
+const getRiskColors = (color) => {
+  switch (color) {
+    case "green":
+      return {
+        badge: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+        icon: <ShieldCheckIcon className="w-4 h-4" />,
+      };
+    case "yellow":
+      return {
+        badge: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
+        icon: <ExclamationTriangleIcon className="w-4 h-4" />,
+      };
+    case "red":
+      return {
+        badge: "bg-red-500/10 text-red-400 border-red-500/20",
+        icon: <XCircleIcon className="w-4 h-4" />,
+      };
+    default:
+      return {
+        badge: "bg-gray-500/10 text-gray-400 border-gray-500/20",
+        icon: <ShieldCheckIcon className="w-4 h-4" />,
+      };
+  }
+};
 
 const DashboardHistory = () => {
   const [assessments, setAssessments] = useState([]);
@@ -28,7 +57,7 @@ const DashboardHistory = () => {
         const data = await api.getHistory();
         setAssessments(data);
       } catch (err) {
-        console.error(err);
+        console.error("Failed to fetch history:", err);
       }
     };
     fetchHistory();
@@ -39,195 +68,193 @@ const DashboardHistory = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Function to get color classes based on risk level
-  const getLevelColor = (grade) => {
-    switch (grade) {
-      case "A":
-      case "Secure":
-        return "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"; // Green
-
-      case "B":
-        return "bg-blue-500/10 text-blue-400 border-blue-500/20"; // Blue
-
-      case "C":
-      case "Moderate":
-        return "bg-yellow-500/10 text-yellow-400 border-yellow-500/20"; // Yellow
-
-      case "D":
-        return "bg-orange-500/10 text-orange-400 border-orange-500/20"; // Orange
-
-      case "F":
-      case "Critical":
-        return "bg-red-500/10 text-red-400 border-red-500/20"; // Red
-
-      default:
-        return "bg-gray-500/10 text-gray-400 border-gray-500/20";
-    }
-  };
-
-  // Function to get icon based on risk level
-  const getLevelIcon = (grade) => {
-    switch (grade) {
-      case "A":
-      case "Secure":
-        return <ShieldCheckIcon className="w-5 h-5" />;
-
-      case "B":
-        return <CheckCircleIcon className="w-5 h-5" />;
-
-      case "C":
-      case "Moderate":
-      case "D":
-        return <ExclamationTriangleIcon className="w-5 h-5" />;
-
-      case "F":
-      case "Critical":
-        return <XCircleIcon className="w-5 h-5" />;
-
-      default:
-        return <ShieldCheckIcon className="w-5 h-5" />;
+  const handleDownload = async (_id) => {
+    try {
+      const pdfBlob = await api.downloadAssessmentPDF(_id);
+      const url = window.URL.createObjectURL(pdfBlob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `assessment-${_id}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error(error);
+      alert("Failed to download PDF");
     }
   };
 
   return (
-    <main className="bg-[#0f1115] pb-24 px-6 md:px-12 text-white font-sans border-t border-gray-800">
-      <div className="pt-16 px-6 md:px-12 bg-[#0f1115]">
-        <AssessmentReport id={selectedId} />
-      </div>
-      <div className="flex flex-col md:flex-row justify-between items-end md:items-center max-w-6xl mx-auto mb-8 mt-12 gap-4">
-        <div>
-          <h1 className="text-3xl font-bold mb-2 flex items-center gap-2">
-            <ClipboardDocumentListIcon className="w-8 h-8 text-blue-500" />
-            Assessment History
-          </h1>
-          <p className="text-gray-400">
-            View details of your past security assessments below.
-          </p>
+    <MatrixContext>
+      <main className="pb-24 px-6 md:px-12 text-white font-sans border-t border-gray-800">
+        {/* TOP SECTION: ACTIVE REPORT */}
+        <div className="pt-16 px-6 md:px-12">
+          <AssessmentReport id={selectedId} />
         </div>
 
-        <button
-          onClick={() => router.push("/assessments/SecurityAssessment")}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg font-medium transition shadow-lg shadow-blue-900/20"
-        >
-          <PlusIcon className="w-5 h-5" />
-          New Assessment
-        </button>
-      </div>
-
-      <div className="bg-[#16181c] rounded-xl border border-gray-800 overflow-hidden max-w-6xl mx-auto shadow-xl">
-        {/* --- TABLE HEADER --- */}
-        <div className="grid grid-cols-12 gap-6 p-4 border-b border-gray-800 text-gray-500 text-xs font-bold uppercase tracking-wider bg-[#1c1f24]/50">
-          <div className="col-span-3 text-left">Date</div>
-          <div className="col-span-2 text-center">Score</div>
-          <div className="col-span-2 text-center">Grade</div>
-          <div className="col-span-3 text-center">Status</div>
-          <div className="col-span-2 text-right pr-20">Actions</div>
-        </div>
-
-        {assessments.length === 0 ? (
-          <div className="flex flex-col items-center justify-center p-16 text-center">
-            <div className="w-20 h-20 bg-gray-800/50 rounded-full flex items-center justify-center mb-6">
-              <ClipboardDocumentListIcon className="w-10 h-10 text-gray-600" />
+        <div className="max-w-7xl mx-auto mt-16">
+          {/* Section Header */}
+          <div className="flex flex-col md:flex-row justify-between items-end md:items-center mb-6 gap-4 pb-4">
+            <div>
+              <h2 className="text-2xl font-bold flex items-center gap-3">
+                <ClipboardDocumentListIcon className="w-7 h-7 text-blue-500" />
+                Assessment History
+              </h2>
+              <p className="text-gray-400 text-sm mt-1 ml-10">
+                A comprehensive log of all your past security evaluations.
+              </p>
             </div>
-            <h3 className="text-xl font-semibold text-gray-200 mb-2">
-              No History Found
-            </h3>
-            <p className="text-gray-500 max-w-sm mb-8">
-              You haven&apos;t run any security assessments yet.
-            </p>
+
             <button
               onClick={() => router.push("/assessments/SecurityAssessment")}
-              className="flex items-center gap-2 px-6 py-2 border border-blue-600 text-blue-400 rounded-full hover:bg-blue-600 hover:text-white transition"
+              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium transition shadow-lg shadow-blue-900/20 text-sm"
             >
-              Start Assessment <ChevronRightIcon className="w-4 h-4" />
+              <PlusIcon className="w-4 h-4" />
+              New Assessment
             </button>
           </div>
-        ) : (
-          assessments.map((item, index) => (
-            <div
-              key={index}
-              className={`grid grid-cols-12 gap-6 p-4 border-b border-gray-800 items-center hover:bg-[#1c1f24] transition group ${
-                selectedId === item._id
-                  ? "bg-blue-900/10 border-l-4 border-l-blue-500"
-                  : ""
-              }`}
-            >
-              {/* Date */}
-              <div className="col-span-3 text-gray-300 text-sm flex items-center gap-3">
-                <div className="p-2 bg-gray-800 rounded-lg text-gray-400">
-                  <CalendarDaysIcon className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="font-medium text-white">
-                    {new Date(item.createdAt).toLocaleDateString()}
-                  </div>
-                  <div className="text-xs text-gray-500">
-                    {new Date(item.createdAt).toLocaleTimeString()}
-                  </div>
-                </div>
-              </div>
 
-              {/* Score */}
-              <div className="col-span-2 font-bold text-xl text-white text-center">
-                {item.summary.score}
-              </div>
-
-              {/* Grade Badge */}
-              <div className="col-span-2 flex justify-center">
-                <div
-                  className={`flex items-center gap-2 px-3 py-1 rounded-full border ${getLevelColor(
-                    item.summary.risk_level
-                  )}`}
-                >
-                  {getLevelIcon(item.summary.risk_level)}
-                  <span className="font-bold">{item.summary.risk_level}</span>
-                </div>
-              </div>
-
-              {/* Status */}
-              <div className="col-span-3 flex justify-center">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-green-900/20 text-green-400 border border-green-900/30">
-                  <CheckCircleIcon className="w-3.5 h-3.5" />
-                  Completed
-                </span>
-              </div>
-
-              {/* Actions */}
-              <div className="col-span-2 w-full md:w-auto flex justify-end items-center gap-2 mt-2 md:mt-0 pr-2">
-                <button
-                  onClick={() => handleViewReport(item._id)}
-                  className="flex items-center gap-2 px-4 py-2 bg-blue-600/10 text-blue-400 border border-blue-500/20 hover:bg-blue-600 hover:text-white rounded-lg transition text-sm font-medium"
-                >
-                  View
-                  <EyeIcon className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={(e) => handleDownload(e, item._id)}
-                  title="Download Report"
-                  className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLine
-                      join="round"
-                      d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
-                    />
-                  </svg>
-                </button>
-              </div>
+          {/* Table Container */}
+          <div className="bg-[#16181c] rounded-xl border border-gray-800 overflow-hidden shadow-2xl">
+            {/* --- TABLE HEADER --- */}
+            <div className="grid grid-cols-12 gap-4 px-6 py-3 bg-[#1c1f24] border-b border-gray-800 text-gray-500 text-xs font-bold uppercase tracking-wider items-center">
+              <div className="col-span-4 pl-4">Date & Time</div>
+              <div className="col-span-2 text-center">Score</div>
+              <div className="col-span-3 text-center">Grade</div>
+              <div className="col-span-2 text-center">Status</div>
+              <div className="col-span-1 text-right pr-2">Actions</div>
             </div>
-          ))
-        )}
-      </div>
-    </main>
+
+            {/* --- TABLE BODY --- */}
+            <div className="divide-y divide-gray-800">
+              {assessments.length === 0 ? (
+                <div className="flex flex-col items-center justify-center p-16 text-center">
+                  <div className="w-16 h-16 bg-gray-800/50 rounded-full flex items-center justify-center mb-4">
+                    <ClipboardDocumentListIcon className="w-8 h-8 text-gray-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-200 mb-1">
+                    No History Found
+                  </h3>
+                  <p className="text-gray-500 text-sm mb-6">
+                    Start your first security assessment today.
+                  </p>
+                  <button
+                    onClick={() =>
+                      router.push("/assessments/SecurityAssessment")
+                    }
+                    className="flex items-center gap-2 px-5 py-2 border border-blue-600 text-blue-400 rounded-full hover:bg-blue-600 hover:text-white transition text-sm"
+                  >
+                    Start Now <ChevronRightIcon className="w-3 h-3" />
+                  </button>
+                </div>
+              ) : (
+                assessments.map((item, index) => {
+                  const style = getRiskColors(item.summary.risk_color);
+                  const isSelected = selectedId === item._id;
+
+                  return (
+                    <div
+                      key={index}
+                      className={`grid grid-cols-12 gap-4 px-6 py-4 items-center transition-all duration-200 group cursor-default
+                      ${
+                        isSelected
+                          ? "bg-blue-900/10 border-l-4 border-l-blue-500" // Active State
+                          : "hover:bg-[#1c1f24] border-l-4 border-l-transparent" // Default State (transparent border prevents jumping)
+                      }
+                    `}
+                    >
+                      {/* Date Column */}
+                      <div className="col-span-4 flex items-center gap-4">
+                        <div
+                          className={`p-2 rounded-lg transition-colors ${
+                            isSelected
+                              ? "bg-blue-500/20 text-blue-400"
+                              : "bg-gray-800 text-gray-400 group-hover:bg-gray-700"
+                          }`}
+                        >
+                          <CalendarDaysIcon className="w-5 h-5" />
+                        </div>
+                        <div className="flex flex-col">
+                          <span
+                            className={`text-sm font-semibold ${
+                              isSelected ? "text-blue-100" : "text-gray-200"
+                            }`}
+                          >
+                            {new Date(item.createdAt).toLocaleDateString()}
+                          </span>
+                          <span className="text-xs text-gray-500 font-mono">
+                            {new Date(item.createdAt).toLocaleTimeString([], {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Score Column */}
+                      <div className="col-span-2 flex justify-center">
+                        <span
+                          className={`text-xl font-bold ${
+                            isSelected ? "text-white" : "text-gray-300"
+                          }`}
+                        >
+                          {item.summary.score}
+                        </span>
+                      </div>
+
+                      {/* Grade Column */}
+                      <div className="col-span-3 flex justify-center">
+                        <div
+                          className={`flex items-center gap-2 px-3 py-1 rounded-full border shadow-sm ${style.badge}`}
+                        >
+                          {style.icon}
+                          <span className="text-xs font-bold uppercase tracking-wide">
+                            {item.summary.grade}{" "}
+                            <span className="opacity-60 mx-1">|</span>{" "}
+                            {item.summary.risk_level}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Status Column */}
+                      <div className="col-span-2 flex justify-center">
+                        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-green-500/10 border border-green-500/20 text-green-400">
+                          <CheckCircleIcon className="w-3.5 h-3.5" />
+                          <span className="text-[10px] font-bold uppercase tracking-wider">
+                            Completed
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Actions Column */}
+                      <div className="col-span-1 flex justify-end items-center gap-2">
+                        <button
+                          onClick={() => handleViewReport(item._id)}
+                          title="View Report"
+                          className="p-2 rounded-lg text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 transition"
+                        >
+                          <EyeIcon className="w-5 h-5" />
+                        </button>
+                        <div className="h-4 w-px bg-gray-700 mx-1"></div>{" "}
+                        {/* Separator */}
+                        <button
+                          onClick={() => handleDownload(item._id)}
+                          title="Download PDF"
+                          className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700 transition"
+                        >
+                          <ArrowDownTrayIcon className="w-5 h-5" />
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+          </div>
+        </div>
+      </main>
+    </MatrixContext>
   );
 };
 
