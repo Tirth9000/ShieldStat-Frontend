@@ -63,6 +63,7 @@ const AssessmentReport = ({ id: propId }) => {
   const router = useRouter();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  
 
   // Use the propId if available (clicked from dashboard), otherwise use URL param
   const activeId = propId || params.id;
@@ -95,11 +96,11 @@ const AssessmentReport = ({ id: propId }) => {
   // If no data, return null to preserve original page layout
   if (!data) return null;
 
-  const riskColors = getRiskColors(data.risk_level);
+  const riskColors = getRiskColors(data.summary.risk_level);
 
   const overallChartData = [
-    { name: "Score Achieved", value: data.score },
-    { name: "Gap", value: data.max_possible_score - data.score },
+    { name: "Score Achieved", value: data.summary.score },
+    { name: "Gap", value: data.summary.max_possible_score - data.summary.score },
   ];
 
   return (
@@ -146,7 +147,7 @@ const AssessmentReport = ({ id: propId }) => {
                   <span
                     className={`text-5xl font-black ${riskColors.text} drop-shadow-lg`}
                   >
-                    {data.percentage}%
+                    {data.summary.percentage}%
                   </span>
                   <span className="text-gray-500 text-xs font-bold uppercase tracking-widest mt-2">
                     Score
@@ -188,7 +189,7 @@ const AssessmentReport = ({ id: propId }) => {
                 <div
                   className={`text-6xl font-black uppercase tracking-wide ${riskColors.text}`}
                 >
-                  {data.risk_level}
+                  {data.summary.risk_level}
                 </div>
               </div>
 
@@ -197,9 +198,9 @@ const AssessmentReport = ({ id: propId }) => {
                   Total Points
                 </h3>
                 <div className="text-3xl font-bold text-white">
-                  {data.score}{" "}
+                  {data.summary.score}{" "}
                   <span className="text-xl text-gray-600">
-                    / {data.max_possible_score}
+                    / {data.summary.max_possible_score}
                   </span>
                 </div>
               </div>
