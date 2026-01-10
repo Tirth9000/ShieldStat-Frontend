@@ -4,12 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
-import Sidebar from "./Sidebar";
 
 export default function Navbar() {
     const { user } = useAuth();
     const [scrolled, setScrolled] = useState(false);
-    const [menu, setMenu] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -17,13 +15,14 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    const toggleMenu = () => {
-        setMenu(prev => !prev);
+    // hide navbar when user is logged in
+    if (user) {
+        return null;
     }
 
     return (
         <nav
-            className={`fixed top-0 left-0 z-50 w-full flex items-center gap-5 px-6 md:px-12 py-4 transition-all duration-300 ${!user && "justify-between"} ${scrolled
+            className={`fixed top-0 left-0 z-50 w-full flex items-center justify-between gap-5 px-6 md:px-12 py-4 transition-all duration-300 ${scrolled
                 ? "border-b border-white/10 bg-[#0d0d1a]/80 backdrop-blur-xl shadow-lg"
                 : "border-transparent bg-transparent"
                 }`}
@@ -47,31 +46,22 @@ export default function Navbar() {
 
             {/* MIDDLE: NAVIGATION LINKS */}
             <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
-                {!user && (
-                    <>
-                        <Link href="/webScore" className="hover:text-white transition-colors">All Web Score</Link>
-                        <Link href="#features" className="hover:text-white transition-colors">Features</Link>
-                        <Link href="#pricing" className="hover:text-white transition-colors">Pricing</Link>
-                    </>
-                )}
+                <Link href="/webScore" className="hover:text-white transition-colors">All Web Score</Link>
+                <Link href="#features" className="hover:text-white transition-colors">Features</Link>
+                <Link href="#pricing" className="hover:text-white transition-colors">Pricing</Link>
             </div>
 
             {/* RIGHT: ACTION BUTTON */}
             <div className="flex items-center gap-4">
-                {!user && (
-                    <Link href="/login">
-                        <button className="group relative px-6 py-2 rounded-full bg-white/5 border border-white/10 overflow-hidden hover:border-blue-500/50 transition-all cursor-pointer">
-                            <div className="absolute inset-0 w-0 bg-blue-600/20 transition-all duration-[250ms] ease-out group-hover:w-full" />
-                            <span className="relative text-sm font-semibold text-white group-hover:text-blue-100">
-                                Login / Sign Up
-                            </span>
-                        </button>
-                    </Link>
-                )}
+                <Link href="/login">
+                    <button className="group relative px-6 py-2 rounded-full bg-white/5 border border-white/10 overflow-hidden hover:border-blue-500/50 transition-all cursor-pointer">
+                        <div className="absolute inset-0 w-0 bg-blue-600/20 transition-all duration-[250ms] ease-out group-hover:w-full" />
+                        <span className="relative text-sm font-semibold text-white group-hover:text-blue-100">
+                            Login / Sign Up
+                        </span>
+                    </button>
+                </Link>
             </div>
-
-            {/* Sidebar */}
-            {user && <Sidebar isOpen={menu} onClose={toggleMenu} />}
         </nav>
     );
 }

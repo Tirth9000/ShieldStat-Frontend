@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
 import { AuthProvider } from "@/context/AuthContext";
 const inter = Inter({ subsets: ["latin"] });
 import 'material-symbols';
@@ -18,6 +19,7 @@ export default function RootLayout({ children }) {
       >
         <AuthProvider>
           <Navbar />
+          <Sidebar />
           {children}
         </AuthProvider>
       </body>
