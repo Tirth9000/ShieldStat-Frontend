@@ -63,7 +63,7 @@ const AssessmentReport = ({ id: propId }) => {
   const router = useRouter();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  
+
 
   // Use the propId if available (clicked from dashboard), otherwise use URL param
   const activeId = propId || params.id;
@@ -96,17 +96,17 @@ const AssessmentReport = ({ id: propId }) => {
   // If no data, return null to preserve original page layout
   if (!data) return null;
 
-  const riskColors = getRiskColors(data.summary.risk_level);
+  const riskColors = getRiskColors(data.risk_level);
 
   const overallChartData = [
-    { name: "Score Achieved", value: data.summary.score },
-    { name: "Gap", value: data.summary.max_possible_score - data.summary.score },
+    { name: "Score Achieved", value: data.score },
+    { name: "Gap", value: data.max_possible_score - data.score },
   ];
 
   return (
     <>
       <div
-        className={`bg-[#0f1115] text-white font-sans ${propId ? "mb-10" : "min-h-screen p-6"
+        className={`bg-transparent text-white font-sans ${propId ? "mb-10" : "min-h-screen p-6"
           }`}
       >
         <div className="max-w-6xl mx-auto">
@@ -132,7 +132,7 @@ const AssessmentReport = ({ id: propId }) => {
 
           {/* --- TOP SECTION: Score & Gauge --- */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-            <div className="lg:col-span-2 bg-[#16181c] rounded-2xl border border-gray-800 p-8 flex flex-col md:flex-row items-center justify-around shadow-2xl">
+            <div className="lg:col-span-2 bg-[#16181c]/80 backdrop-blur-sm rounded-2xl border border-gray-800 p-8 flex flex-col md:flex-row items-center justify-around shadow-2xl">
               <div className="text-center md:text-left mb-6 md:mb-0">
                 <h2 className="text-2xl font-bold mb-2">Security Score</h2>
                 <p className="text-gray-400 max-w-xs leading-relaxed">
@@ -147,7 +147,7 @@ const AssessmentReport = ({ id: propId }) => {
                   <span
                     className={`text-5xl font-black ${riskColors.text} drop-shadow-lg`}
                   >
-                    {data.summary.percentage}%
+                    {data.percentage}%
                   </span>
                   <span className="text-gray-500 text-xs font-bold uppercase tracking-widest mt-2">
                     Score
@@ -181,7 +181,7 @@ const AssessmentReport = ({ id: propId }) => {
             {/* Side Stats Panel */}
             <div className="flex flex-col gap-4">
               <div
-                className={`flex-1 rounded-2xl border p-6 flex flex-col justify-center items-center ${riskColors.border}`}
+                className={`flex-1 rounded-2xl border p-6 flex flex-col justify-center items-center backdrop-blur-sm ${riskColors.border}`}
               >
                 <h3 className="text-gray-300 text-xs font-bold uppercase tracking-widest mb-3">
                   Current Risk Level
@@ -189,18 +189,18 @@ const AssessmentReport = ({ id: propId }) => {
                 <div
                   className={`text-6xl font-black uppercase tracking-wide ${riskColors.text}`}
                 >
-                  {data.summary.risk_level}
+                  {data.risk_level}
                 </div>
               </div>
 
-              <div className="flex-1 bg-[#16181c] rounded-2xl border border-gray-800 p-6 flex flex-col justify-center items-center">
+              <div className="flex-1 bg-[#16181c]/80 backdrop-blur-sm rounded-2xl border border-gray-800 p-6 flex flex-col justify-center items-center">
                 <h3 className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-1">
                   Total Points
                 </h3>
                 <div className="text-3xl font-bold text-white">
-                  {data.summary.score}{" "}
+                  {data.score}{" "}
                   <span className="text-xl text-gray-600">
-                    / {data.summary.max_possible_score}
+                    / {data.max_possible_score}
                   </span>
                 </div>
               </div>

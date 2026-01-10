@@ -6,7 +6,7 @@ import { Shield, AlertTriangle, Bug, Zap } from "lucide-react";
 import { Skeleton } from "./Skeleton";
 
 const MetricCard = ({ title, icon: Icon, children, isLoading }) => (
-    <div className={`bg-[#11141d] border border-white/5 rounded-xl p-5 flex items-center justify-between`}>
+    <div className={`bg-white dark:bg-[#11141d] border border-slate-200 dark:border-white/5 rounded-xl p-5 flex items-center justify-between shadow-sm dark:shadow-none transition-colors duration-300`}>
         <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
                 <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{title}</span>
@@ -18,7 +18,7 @@ const MetricCard = ({ title, icon: Icon, children, isLoading }) => (
                 </div>
             ) : children}
         </div>
-        <div className="bg-white/5 p-3 rounded-lg flex-shrink-0">
+        <div className="bg-slate-100 dark:bg-white/5 p-3 rounded-lg flex-shrink-0 transition-colors duration-300">
             <Icon className="w-6 h-6 text-slate-400 opacity-60" />
         </div>
     </div>
@@ -32,27 +32,27 @@ const MetricsHeader = ({ data }) => {
             {/* Security Score */}
             <MetricCard title="Security Score" icon={Shield} isLoading={isLoading}>
                 <div className="flex items-baseline gap-2">
-                    <span className="text-4xl font-black text-white">{data?.score}</span>
-                    <span className="text-xs font-bold text-emerald-400">+5% from last week</span>
+                    <span className="text-4xl font-black text-slate-900 dark:text-white">{data?.score}</span>
+                    <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">+5% from last week</span>
                 </div>
             </MetricCard>
 
             {/* Risk Level */}
             <MetricCard title="Risk Level" icon={AlertTriangle} isLoading={isLoading}>
                 <div className="flex flex-col">
-                    <span className="text-2xl font-black text-white">{data?.riskLevel}</span>
-                    <span className="text-xs font-medium text-slate-400">Scan results pending</span>
+                    <span className="text-2xl font-black text-slate-900 dark:text-white">{data?.riskLevel}</span>
+                    <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Scan results pending</span>
                 </div>
             </MetricCard>
 
             {/* Vulns Found */}
             <MetricCard title="Vulns Found" icon={Bug} isLoading={isLoading}>
                 <div className="flex flex-col">
-                    <span className="text-2xl font-black text-white">{data?.vulns?.total ?? 0} Total</span>
+                    <span className="text-2xl font-black text-slate-900 dark:text-white">{data?.vulns?.total ?? 0} Total</span>
                     <div className="flex gap-2 mt-1">
                         <span className="text-[10px] font-bold text-red-500">{data?.vulns?.critical ?? 0} Critical</span>
                         <span className="text-[10px] font-bold text-orange-500">{data?.vulns?.high ?? 0} High</span>
-                        <span className="text-[10px] font-bold text-yellow-500">{data?.vulns?.low ?? 0} Low</span>
+                        <span className="text-[10px] font-bold text-yellow-600 dark:text-yellow-500">{data?.vulns?.low ?? 0} Low</span>
                     </div>
                 </div>
             </MetricCard>
@@ -60,8 +60,8 @@ const MetricsHeader = ({ data }) => {
             {/* Scan Time */}
             <MetricCard title="Scan Time" icon={Zap} isLoading={isLoading}>
                 <div className="flex flex-col">
-                    <span className="text-2xl font-black text-white">{data?.scanTime ?? "0s"}</span>
-                    <span className="text-xs font-medium text-slate-400">Full surface scan completed</span>
+                    <span className="text-2xl font-black text-slate-900 dark:text-white">{data?.scanTime ?? "0s"}</span>
+                    <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Full surface scan completed</span>
                 </div>
             </MetricCard>
         </div>

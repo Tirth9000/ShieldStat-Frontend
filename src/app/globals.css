@@ -1,20 +1,70 @@
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
+/* Theme Variables */
+:root {
+  --transition-theme: all 0.3s ease;
+}
+
+/* Dark Theme (Default) */
+.dark {
+  --bg-primary: #0a0c10;
+  --bg-secondary: #11141d;
+  --bg-tertiary: #1a1d2e;
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --text-tertiary: #94a3b8;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --accent-color: #3b82f6;
+}
+
+/* Light Theme */
+.light {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-tertiary: #64748b;
+  --border-color: rgba(15, 23, 42, 0.1);
+  --accent-color: #2563eb;
+}
+
+/* Apply theme transitions */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: var(--transition-theme);
+}
+
 ::-webkit-scrollbar {
   display: none;
 }
 
-html, body {
-  -ms-overflow-style: none;  
-  scrollbar-width: none;  
+html,
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 @layer utilities {
   @keyframes spin-y {
-    0% { transform: rotateY(0deg); }
-    100% { transform: rotateY(360deg); }
+    0% {
+      transform: rotateY(0deg);
+    }
+
+    100% {
+      transform: rotateY(360deg);
+    }
   }
+
   .animate-spin-y {
-    animation: spin-y 10s linear infinite; /* Adjust 10s to change speed */
+    animation: spin-y 10s linear infinite;
+    /* Adjust 10s to change speed */
   }
 }

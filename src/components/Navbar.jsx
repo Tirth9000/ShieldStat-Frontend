@@ -4,11 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import UserProfileDropdown from "./UserProfileDropdown"; 
+import UserProfileDropdown from "./UserProfileDropdown";
 import { useAuth } from "@/context/AuthContext";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
-  const { user } = useAuth(); 
+  const { user } = useAuth();
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
 
@@ -22,11 +23,10 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 z-50 w-full flex items-center justify-between px-6 md:px-12 py-4 transition-all duration-300 ${
-        scrolled
-          ? "border-b border-white/10 bg-[#0d0d1a]/80 backdrop-blur-xl shadow-lg"
-          : "border-transparent bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 z-50 w-full flex items-center justify-between px-6 md:px-12 py-4 transition-all duration-300 ${scrolled
+        ? "border-b border-white/10 bg-[#0d0d1a]/80 backdrop-blur-xl shadow-lg"
+        : "border-transparent bg-transparent"
+        }`}
     >
       {/* LEFT: LOGO */}
       <Link href="/" className="flex items-center gap-3 group">
@@ -52,9 +52,8 @@ export default function Navbar() {
               <Link
                 key={item}
                 href={`/${item.toLowerCase()}`}
-                className={`transition-colors hover:text-white ${
-                  isActive(`/${item.toLowerCase()}`) ? "text-blue-500" : ""
-                }`}
+                className={`transition-colors hover:text-white ${isActive(`/${item.toLowerCase()}`) ? "text-blue-500" : ""
+                  }`}
               >
                 {item}
               </Link>
@@ -71,6 +70,7 @@ export default function Navbar() {
 
       {/* RIGHT: ACTION BUTTON */}
       <div className="flex items-center gap-4">
+        <ThemeToggle />
         {user ? (
           <UserProfileDropdown />
         ) : (

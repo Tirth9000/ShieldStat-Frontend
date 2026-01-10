@@ -1,6 +1,5 @@
-// "use client";
+"use client";
 
-<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import {
   Globe,
@@ -24,18 +23,11 @@ import StatusBadge from "./components/StatusBadge";
 import EmptyState from "./components/EmptyState";
 import MetricsHeader from "./components/MetricsHeader";
 import { Skeleton, SkeletonTable } from "./components/Skeleton";
-=======
-// import React, { useState, useEffect } from "react";
-// import MetricsGrid from "./dashboardComponents/MetricsGrid";
-// import ActionItems from "./dashboardComponents/ActionItems";
-// import LoadingAnimation from "@/components/Loader";
->>>>>>> 5b1d0074a070132a10b2b79f1b0200ec1132a8eb
 
-// export default function DashboardPage() {
-//   const [data, setData] = useState(null);
-//   const [loading, setLoading] = useState(true);
+export default function DashboardPage() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-<<<<<<< HEAD
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -47,86 +39,14 @@ import { Skeleton, SkeletonTable } from "./components/Skeleton";
     };
     fetchData();
   }, []);
-=======
-//   // MOCK API
-//   useEffect(() => {
-//     const mockApiResponse = {
-//       domain: "example.com",
-//       stats: {
-//         score: 85,
-//         riskLabel: "Medium Risk",
-//         lastScan: "Just now",
-//         safetyStatus: "Needs Attention",
-//       },
-//       findings: [
-//         {
-//           id: 1,
-//           title: "Exposed Database Port",
-//           desc: "We found a database service (Port 3306) open to the internet.",
-//           reason: "Attackers could try to guess your password and steal data.",
-//           severity: "critical",
-//           icon: "database",
-//         },
-//         {
-//           id: 2,
-//           title: "Test Subdomain Visible",
-//           desc: "The subdomain 'test.example.com' is publicly accessible.",
-//           reason: "Test sites often have weaker security and bugs.",
-//           severity: "warning",
-//           icon: "cloud_off",
-//         },
-//         {
-//           id: 3,
-//           title: "Email Identity Verified",
-//           desc: "Your SPF and DKIM records are correctly configured.",
-//           severity: "safe",
-//           icon: "verified_user",
-//         },
-//       ],
-//       recommendations: [
-//         {
-//           id: 1,
-//           priority: "High Priority",
-//           action: "Close Port 3306",
-//           type: "critical",
-//           link: true,
-//         },
-//         {
-//           id: 2,
-//           priority: "Medium Priority",
-//           action: 'Hide "test" subdomain',
-//           type: "warning",
-//           link: true,
-//         },
-//         {
-//           id: 3,
-//           priority: "Maintenance",
-//           action: "Set calendar reminder for SSL renewal",
-//           type: "safe",
-//           link: false,
-//         },
-//       ],
-//     };
 
-//     const fetchData = async () => {
-//       setLoading(true);
-//       await new Promise((resolve) => setTimeout(resolve, 800)); // Slightly faster feel
-//       setData(mockApiResponse);
-//       setLoading(false);
-//     };
+  if (loading) return <LoadingAnimation />;
 
-//     fetchData();
-//   }, []);
->>>>>>> 5b1d0074a070132a10b2b79f1b0200ec1132a8eb
-
-//   if (loading) return <LoadingAnimation />;
-
-<<<<<<< HEAD
   // Component handles empty data gracefully
   const isLoading = !data || Object.keys(data).length === 0;
 
   return (
-    <main className="min-h-screen bg-[#0a0c10] text-slate-200 p-6 md:p-10">
+    <main className="min-h-screen bg-slate-50 dark:bg-[#0a0c10] text-slate-900 dark:text-slate-200 p-6 md:p-10 transition-colors duration-300">
       <div className="max-w-[1600px] mx-auto space-y-8">
 
         {/* Header Section */}
@@ -136,7 +56,7 @@ import { Skeleton, SkeletonTable } from "./components/Skeleton";
               {isLoading ? (
                 <Skeleton className="h-9 w-48" />
               ) : (
-                <h1 className="text-3xl font-black text-white tracking-tight">{data.domain || "N/A"}</h1>
+                <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">{data.domain || "N/A"}</h1>
               )}
               {isLoading ? (
                 <Skeleton className="h-6 w-24 rounded-full" />
@@ -153,7 +73,7 @@ import { Skeleton, SkeletonTable } from "./components/Skeleton";
           </div>
 
           <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 px-5 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm font-bold transition-all">
+            <button className="flex items-center gap-2 px-5 py-2.5 bg-slate-200 dark:bg-white/5 hover:bg-slate-300 dark:hover:bg-white/10 border border-slate-300 dark:border-white/10 rounded-lg text-sm font-bold transition-all text-slate-900 dark:text-white">
               <Download className="w-4 h-4" /> Export Report
             </button>
             <button className="flex items-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white border border-blue-500/50 rounded-lg text-sm font-bold shadow-lg shadow-blue-500/20 transition-all">
@@ -186,19 +106,19 @@ import { Skeleton, SkeletonTable } from "./components/Skeleton";
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                   <div>
                     <p className="text-[10px] uppercase font-bold text-slate-500 tracking-widest mb-1.5">Registrar</p>
-                    <p className="text-sm font-bold text-white/90">{data?.identity?.registrar || "N/A"}</p>
+                    <p className="text-sm font-bold text-slate-800 dark:text-white/90">{data?.identity?.registrar || "N/A"}</p>
                   </div>
                   <div>
                     <p className="text-[10px] uppercase font-bold text-slate-500 tracking-widest mb-1.5">Created On</p>
-                    <p className="text-sm font-bold text-white/90">{data?.identity?.createdOn || "N/A"}</p>
+                    <p className="text-sm font-bold text-slate-800 dark:text-white/90">{data?.identity?.createdOn || "N/A"}</p>
                   </div>
                   <div>
                     <p className="text-[10px] uppercase font-bold text-slate-500 tracking-widest mb-1.5">Expires On</p>
-                    <p className="text-sm font-bold text-white/90">{data?.identity?.expiresOn || "N/A"}</p>
+                    <p className="text-sm font-bold text-slate-800 dark:text-white/90">{data?.identity?.expiresOn || "N/A"}</p>
                   </div>
                   <div>
                     <p className="text-[10px] uppercase font-bold text-slate-500 tracking-widest mb-1.5">IP Address</p>
-                    <p className="text-sm font-mono font-bold text-white/90 bg-white/5 px-2 py-0.5 rounded">{data?.identity?.ipAddress || "0.0.0.0"}</p>
+                    <p className="text-sm font-mono font-bold text-slate-800 dark:text-white/90 bg-slate-100 dark:bg-white/5 px-2 py-0.5 rounded">{data?.identity?.ipAddress || "0.0.0.0"}</p>
                   </div>
                 </div>
               )}
@@ -226,11 +146,11 @@ import { Skeleton, SkeletonTable } from "./components/Skeleton";
                     </thead>
                     <tbody className="divide-y divide-white/5">
                       {data.ports.map((p, i) => (
-                        <tr key={i}>
-                          <td className="py-4 text-sm font-medium text-white/90">{p.port}</td>
-                          <td className="py-4 text-sm font-medium text-slate-400 uppercase">{p.protocol}</td>
-                          <td className="py-4 text-sm font-medium text-white/90 flex items-center gap-2">
-                            <Box className="w-4 h-4 text-slate-500" /> {p.service}
+                        <tr key={i} className="border-t border-slate-100 dark:border-white/5">
+                          <td className="py-4 text-sm font-medium text-slate-800 dark:text-white/90">{p.port}</td>
+                          <td className="py-4 text-sm font-medium text-slate-500 uppercase">{p.protocol}</td>
+                          <td className="py-4 text-sm font-medium text-slate-800 dark:text-white/90 flex items-center gap-2">
+                            <Box className="w-4 h-4 text-slate-400" /> {p.service}
                           </td>
                           <td className="py-4"><StatusBadge status={p.status} text={p.status} /></td>
                           <td className="py-4">
@@ -267,11 +187,11 @@ import { Skeleton, SkeletonTable } from "./components/Skeleton";
                     </thead>
                     <tbody className="divide-y divide-white/5">
                       {data.subdomains.map((s, i) => (
-                        <tr key={i}>
-                          <td className="py-4 text-sm font-medium text-white/80">{s.name}</td>
+                        <tr key={i} className="border-t border-slate-100 dark:border-white/5">
+                          <td className="py-4 text-sm font-medium text-slate-700 dark:text-white/80">{s.name}</td>
                           <td className="py-4"><StatusBadge status={s.status} text={s.status} /></td>
-                          <td className="py-4 text-xs font-mono text-slate-400">{s.ip}</td>
-                          <td className="py-4 text-xs font-bold text-yellow-500">{s.risk}</td>
+                          <td className="py-4 text-xs font-mono text-slate-500 dark:text-slate-400">{s.ip}</td>
+                          <td className="py-4 text-xs font-bold text-yellow-600 dark:text-yellow-500">{s.risk}</td>
                           <td className="py-4 text-xs text-slate-500">{s.notes}</td>
                         </tr>
                       ))}
@@ -335,9 +255,9 @@ import { Skeleton, SkeletonTable } from "./components/Skeleton";
                   ))
                 ) : data?.emailSecurity?.length > 0 ? (
                   data.emailSecurity.map((item, i) => (
-                    <div key={i} className="flex items-center justify-between">
+                    <div key={i} className="flex items-center justify-between py-1 border-b border-slate-100 dark:border-white/5 last:border-0">
                       <div>
-                        <p className="text-xs font-bold text-white/90">{item.name}</p>
+                        <p className="text-xs font-bold text-slate-800 dark:text-white/90">{item.name}</p>
                         <p className="text-[10px] text-slate-500">{item.detail}</p>
                       </div>
                       <StatusBadge status={item.status} text={item.status} />
@@ -372,19 +292,19 @@ import { Skeleton, SkeletonTable } from "./components/Skeleton";
                       <CheckCircle2 className="w-5 h-5 text-emerald-400" />
                     </div>
                     <div>
-                      <p className="text-xs font-bold text-white/90">Certificate Valid</p>
+                      <p className="text-xs font-bold text-slate-800 dark:text-white/90">Certificate Valid</p>
                       <p className="text-[10px] text-slate-500">Issued by {data.ssl.issuer}</p>
                       <p className="text-[10px] text-slate-500">Expires in {data.ssl.expiry}</p>
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
-                    <div className="bg-white/5 p-3 rounded-lg border border-white/5">
+                    <div className="bg-slate-50 dark:bg-white/5 p-3 rounded-lg border border-slate-200 dark:border-white/5">
                       <p className="text-[9px] uppercase font-bold text-slate-500 tracking-wider mb-1">TLS VERSION</p>
-                      <p className="text-sm font-bold text-white/80">{data.ssl.tlsVersions}</p>
+                      <p className="text-sm font-bold text-slate-700 dark:text-white/80">{data.ssl.tlsVersions}</p>
                     </div>
-                    <div className="bg-white/5 p-3 rounded-lg border border-white/5">
+                    <div className="bg-slate-50 dark:bg-white/5 p-3 rounded-lg border border-slate-200 dark:border-white/5">
                       <p className="text-[9px] uppercase font-bold text-slate-500 tracking-wider mb-1">CIPHER STRENGTH</p>
-                      <p className="text-sm font-bold text-emerald-400">{data.ssl.cipherStrength}</p>
+                      <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400">{data.ssl.cipherStrength}</p>
                     </div>
                   </div>
                 </div>
@@ -440,10 +360,10 @@ import { Skeleton, SkeletonTable } from "./components/Skeleton";
                   ))
                 ) : data?.remediation?.length > 0 ? (
                   data.remediation.map((item, i) => (
-                    <div key={i} className="flex items-start gap-3">
+                    <div key={i} className="flex items-start gap-3 border-b border-slate-100 dark:border-white/5 last:border-0 pb-3 last:pb-0">
                       <div className={`w-1.5 h-1.5 rounded-full mt-2 ${item.severity === 'critical' ? 'bg-red-500' : 'bg-yellow-500'}`} />
                       <div>
-                        <p className="text-xs font-bold text-white/90">{item.title}</p>
+                        <p className="text-xs font-bold text-slate-800 dark:text-white/90">{item.title}</p>
                         <p className="text-[10px] text-slate-500 leading-relaxed">{item.detail}</p>
                       </div>
                     </div>
@@ -453,7 +373,7 @@ import { Skeleton, SkeletonTable } from "./components/Skeleton";
                 )}
               </div>
               {!isLoading && (
-                <button className="w-full mt-6 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-[11px] font-bold text-white/80 transition-all uppercase tracking-wider">
+                <button className="w-full mt-6 py-2.5 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 rounded-lg text-[11px] font-bold text-slate-700 dark:text-white/80 transition-all uppercase tracking-wider">
                   View Full Action Plan
                 </button>
               )}
@@ -474,9 +394,9 @@ import { Skeleton, SkeletonTable } from "./components/Skeleton";
                   ))
                 ) : data?.threatIntel?.length > 0 ? (
                   data.threatIntel.map((item, i) => (
-                    <div key={i} className="flex items-start justify-between">
+                    <div key={i} className="flex items-start justify-between border-b border-slate-100 dark:border-white/5 last:border-0 pb-3 last:pb-0">
                       <div>
-                        <p className="text-xs font-bold text-white/90">{item.title}</p>
+                        <p className="text-xs font-bold text-slate-800 dark:text-white/90">{item.title}</p>
                         <p className="text-[10px] text-slate-500 leading-relaxed">{item.detail}</p>
                       </div>
                       <StatusBadge status={item.risk} text={item.risk} />
@@ -495,39 +415,3 @@ import { Skeleton, SkeletonTable } from "./components/Skeleton";
     </main>
   );
 }
-=======
-//   return (
-//     <main className="relative min-h-screen w-full text-slate-200 font-sans  overflow-hidden m-10">
-
-//       <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-12 sm:px-6 lg:px-8">
-
-//         <section className="animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">
-//           <MetricsGrid
-//             score={data.stats.score}
-//             riskLevel={data.stats.riskLabel}
-//             lastScan={data.stats.lastScan}
-//             safetyStatus={data.stats.safetyStatus}
-//           />
-//         </section>
-
-//         <section className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
-//           <ActionItems
-//             findings={data.findings}
-//             recommendations={data.recommendations}
-//           />
-//         </section>
-//       </div>
-//     </main>
-//   );
-// }
-
-import React from 'react'
-
-const page = () => {
-  return (
-    <div>page</div>
-  )
-}
-
-export default page
->>>>>>> 5b1d0074a070132a10b2b79f1b0200ec1132a8eb
