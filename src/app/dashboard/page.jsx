@@ -46,7 +46,7 @@ export default function DashboardPage() {
   const isLoading = !data || Object.keys(data).length === 0;
 
   return (
-    <main className="min-h-screen bg-slate-50 dark:bg-[#0a0c10] text-slate-900 dark:text-slate-200 p-6 md:p-10 transition-colors duration-300">
+    <main className="min-h-screen bg-slate-50 dark:bg-[#0a0c10] text-slate-900 dark:text-slate-200 p-6 md:p-10 pt-24 md:pt-28 transition-colors duration-300">
       <div className="max-w-[1600px] mx-auto space-y-8">
 
         {/* Header Section */}

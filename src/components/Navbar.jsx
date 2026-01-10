@@ -24,7 +24,7 @@ export default function Navbar() {
   return (
     <nav
       className={`fixed top-0 left-0 z-50 w-full flex items-center justify-between px-6 md:px-12 py-4 transition-all duration-300 ${scrolled
-        ? "border-b border-white/10 bg-[#0d0d1a]/80 backdrop-blur-xl shadow-lg"
+        ? "border-b border-white/10 dark:border-white/10 bg-white/80 dark:bg-[#0d0d1a]/80 backdrop-blur-xl shadow-lg"
         : "border-transparent bg-transparent"
         }`}
     >
@@ -39,20 +39,20 @@ export default function Navbar() {
             className="group-hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] transition-all"
           />
         </div>
-        <span className="text-lg font-bold tracking-wide text-white group-hover:text-gray-200 transition-colors">
+        <span className="text-lg font-bold tracking-wide text-slate-900 dark:text-white transition-colors">
           Cyberguard
         </span>
       </Link>
 
       {/* MIDDLE: NAVIGATION LINKS */}
-      <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
+      <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600 dark:text-gray-400">
         {user ? (
           <>
             {["Dashboard", "Scans", "Reports", "Assessments"].map((item) => (
               <Link
                 key={item}
                 href={`/${item.toLowerCase()}`}
-                className={`transition-colors hover:text-white ${isActive(`/${item.toLowerCase()}`) ? "text-blue-500" : ""
+                className={`transition-colors hover:text-blue-600 dark:hover:text-white ${isActive(`/${item.toLowerCase()}`) ? "text-blue-500" : ""
                   }`}
               >
                 {item}
@@ -61,9 +61,9 @@ export default function Navbar() {
           </>
         ) : (
           <>
-            <Link href="/webScore" className="hover:text-white transition-colors">All Web Score</Link>
-            <Link href="#features" className="hover:text-white transition-colors">Features</Link>
-            <Link href="#pricing" className="hover:text-white transition-colors">Pricing</Link>
+            <Link href="/webScore" className="hover:text-blue-600 dark:hover:text-white transition-colors">All Web Score</Link>
+            <Link href="#features" className="hover:text-blue-600 dark:hover:text-white transition-colors">Features</Link>
+            <Link href="#pricing" className="hover:text-blue-600 dark:hover:text-white transition-colors">Pricing</Link>
           </>
         )}
       </div>
@@ -75,9 +75,9 @@ export default function Navbar() {
           <UserProfileDropdown />
         ) : (
           <Link href="/login">
-            <button className="group relative px-6 py-2 rounded-full bg-white/5 border border-white/10 overflow-hidden hover:border-blue-500/50 transition-all cursor-pointer">
+            <button className="group relative px-6 py-2 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 overflow-hidden hover:border-blue-500/50 transition-all cursor-pointer">
               <div className="absolute inset-0 w-0 bg-blue-600/20 transition-all duration-[250ms] ease-out group-hover:w-full" />
-              <span className="relative text-sm font-semibold text-white group-hover:text-blue-100">
+              <span className="relative text-sm font-semibold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-100">
                 Login / Sign Up
               </span>
             </button>
