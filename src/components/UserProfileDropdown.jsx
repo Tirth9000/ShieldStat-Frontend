@@ -40,7 +40,7 @@ export default function UserProfileDropdown() {
 
       {/* Dropdown Menu (The UI you liked) */}
       {isDropdownOpen && (
-        <div className="absolute right-0 top-12 w-80 bg-[#1e1e20] rounded-3xl shadow-2xl border border-white/10 flex flex-col items-center text-gray-100 z-50 overflow-hidden animate-in fade-in zoom-in-95 slide-in-from-top-2 duration-200">
+        <div className="absolute left-0 bottom-12 w-80 bg-[#1e1e20] rounded-3xl shadow-2xl border border-white/10 flex flex-col items-center text-gray-100 z-[70] overflow-hidden animate-in fade-in zoom-in-95 slide-in-from-top-2 duration-200">
           
           {/* Close Button (X) */}
           <button
