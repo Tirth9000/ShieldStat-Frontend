@@ -10,7 +10,7 @@ export default function NewScan() {
 
   return (
     <>
-      <main className="max-w-4xl mx-auto mt-16 px-6">
+      <main className="max-w-4xl mx-auto mt-16 px-6 backdrop-blur-none">
         <h1 className="text-4xl font-bold text-center">
           New Reconnaissance Mission
         </h1>
@@ -18,7 +18,7 @@ export default function NewScan() {
           Initiate a comprehensive vulnerability assessment
         </p>
 
-        <div className="mt-10">
+        <div className="mt-10 backdrop-blur-md">
           <label className="block text-sm mb-2">Target Domain</label>
           <input
             placeholder="company.com"
@@ -26,7 +26,7 @@ export default function NewScan() {
           />
         </div>
 
-        <div className="grid grid-cols-3 gap-6 mt-10">
+        <div className="grid grid-cols-3 gap-6 mt-10 backdrop-blur-none">
           <div onClick={() => setMode("quick")}>
             <ScanModeCard
               title="Quick Subdomain"

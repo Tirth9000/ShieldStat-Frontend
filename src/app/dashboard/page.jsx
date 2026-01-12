@@ -1,117 +1,165 @@
-// "use client";
+"use client";
 
-// import React, { useState, useEffect } from "react";
-// import MetricsGrid from "./dashboardComponents/MetricsGrid";
-// import ActionItems from "./dashboardComponents/ActionItems";
-// import LoadingAnimation from "@/components/Loader";
+import React, { useEffect, useState } from "react";
+import ExecutiveSummary from "./components/ExecutiveSummary";
+import SimpleAssetCard from "./components/SimpleAssetCard";
+import { MatrixContext } from "@/context/MatrixContext";
 
-// export default function DashboardPage() {
-//   const [data, setData] = useState(null);
-//   const [loading, setLoading] = useState(true);
+// Paste your FINAL DATA here
+const FINAL_DATA = [
+  {
+    Scanner: "HTTPXFilter",
+    Category: "HTTPX FilterScanner",
+    Target: "allianzcloud.com",
+    Data: {
+      subdomain: "https://mail.xyzcloud.com",
+      http_data: {
+        Subdomain: "mail.xyzcloud.com",
+        URL: "https://mail.allianzcloud.com",
+        StatusCode: 200,
+        Scheme: "https",
+        Server: "",
+        Technologies: ["Java", "Nginx", "Zimbra"],
+        TLS: { Enabled: true },
+        Metadata: {
+          Title: "Zimbra Web Client Sign In",
+          ResponseTimeMs: 1207.357667,
+        },
+      },
+      ports: [
+        { Port: 25, Protocol: "tcp" },
+        { Port: 110, Protocol: "tcp" },
+        { Port: 587, Protocol: "tcp" },
+        { Port: 143, Protocol: "tcp" },
+        { Port: 80, Protocol: "tcp" },
+        { Port: 993, Protocol: "tcp" },
+        { Port: 111, Protocol: "tcp" },
+        { Port: 995, Protocol: "tcp" },
+        { Port: 443, Protocol: "tcp" },
+        { Port: 22, Protocol: "tcp" },
+        { Port: 465, Protocol: "tcp" },
+        { Port: 53, Protocol: "tcp" },
+        { Port: 21, Protocol: "tcp" },
+      ],
+    },
+    Severity: "info",
+    Timestamp: "2026-01-12T16:35:20+05:30",
+  },
+  {
+    Scanner: "HTTPXFilter",
+    Category: "HTTPX FilterScanner",
+    Target: "allianzcloud.com",
+    Data: {
+      subdomain: "https://hosting.xyzcloud.com",
+      http_data: {
+        Subdomain: "hosting.xyzcloud.com",
+        URL: "https://hosting.xyzcloud.com",
+        StatusCode: 200,
+        Scheme: "https",
+        Server: "",
+        Technologies: ["Apache HTTP Server"],
+        TLS: { Enabled: true },
+        Metadata: {
+          Title: "",
+          ResponseTimeMs: 1630.750875,
+        },
+      },
+      ports: [
+        { Port: 25, Protocol: "tcp" },
+        { Port: 110, Protocol: "tcp" },
+        { Port: 587, Protocol: "tcp" },
+        { Port: 143, Protocol: "tcp" },
+        { Port: 80, Protocol: "tcp" },
+        { Port: 993, Protocol: "tcp" },
+        { Port: 111, Protocol: "tcp" },
+        { Port: 995, Protocol: "tcp" },
+        { Port: 443, Protocol: "tcp" },
+        { Port: 22, Protocol: "tcp" },
+        { Port: 465, Protocol: "tcp" },
+        { Port: 53, Protocol: "tcp" },
+        { Port: 21, Protocol: "tcp" },
+      ],
+    },
+    Severity: "info",
+    Timestamp: "2026-01-12T16:35:20+05:30",
+  },
+];
 
-//   // MOCK API
-//   useEffect(() => {
-//     const mockApiResponse = {
-//       domain: "example.com",
-//       stats: {
-//         score: 85,
-//         riskLabel: "Medium Risk",
-//         lastScan: "Just now",
-//         safetyStatus: "Needs Attention",
-//       },
-//       findings: [
-//         {
-//           id: 1,
-//           title: "Exposed Database Port",
-//           desc: "We found a database service (Port 3306) open to the internet.",
-//           reason: "Attackers could try to guess your password and steal data.",
-//           severity: "critical",
-//           icon: "database",
-//         },
-//         {
-//           id: 2,
-//           title: "Test Subdomain Visible",
-//           desc: "The subdomain 'test.example.com' is publicly accessible.",
-//           reason: "Test sites often have weaker security and bugs.",
-//           severity: "warning",
-//           icon: "cloud_off",
-//         },
-//         {
-//           id: 3,
-//           title: "Email Identity Verified",
-//           desc: "Your SPF and DKIM records are correctly configured.",
-//           severity: "safe",
-//           icon: "verified_user",
-//         },
-//       ],
-//       recommendations: [
-//         {
-//           id: 1,
-//           priority: "High Priority",
-//           action: "Close Port 3306",
-//           type: "critical",
-//           link: true,
-//         },
-//         {
-//           id: 2,
-//           priority: "Medium Priority",
-//           action: 'Hide "test" subdomain',
-//           type: "warning",
-//           link: true,
-//         },
-//         {
-//           id: 3,
-//           priority: "Maintenance",
-//           action: "Set calendar reminder for SSL renewal",
-//           type: "safe",
-//           link: false,
-//         },
-//       ],
-//     };
+export default function Dashboard() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-//     const fetchData = async () => {
-//       setLoading(true);
-//       await new Promise((resolve) => setTimeout(resolve, 800)); // Slightly faster feel
-//       setData(mockApiResponse);
-//       setLoading(false);
-//     };
+  useEffect(() => {
+    // Simulate loading briefly so the animation shows, then set final data
+    const loadData = async () => {
+      setTimeout(() => {
+        setData(FINAL_DATA);
+        setLoading(false);
+      }, 800);
+    };
+    loadData();
+  }, []);
 
-//     fetchData();
-//   }, []);
+  // Calculate Risk (Check inside the new structure: item.Data.ports)
+  const riskyPorts = [22, 21, 3389, 3306, 5432];
 
-//   if (loading) return <LoadingAnimation />;
+  const riskyAssetsCount = data.filter((item) =>
+    item.Data.ports?.some((p) => riskyPorts.includes(p.Port))
+  ).length;
 
-//   return (
-//     <main className="relative min-h-screen w-full text-slate-200 font-sans  overflow-hidden m-10">
+  const targetName = data.length > 0 ? data[0].Target : "Unknown Target";
 
-//       <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-12 sm:px-6 lg:px-8">
-
-//         <section className="animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">
-//           <MetricsGrid
-//             score={data.stats.score}
-//             riskLevel={data.stats.riskLabel}
-//             lastScan={data.stats.lastScan}
-//             safetyStatus={data.stats.safetyStatus}
-//           />
-//         </section>
-
-//         <section className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
-//           <ActionItems
-//             findings={data.findings}
-//             recommendations={data.recommendations}
-//           />
-//         </section>
-//       </div>
-//     </main>
-//   );
-// }
-
-import React from 'react'
-
-const page = () => {
   return (
-    <div>page</div>
-  )
-}
+    <MatrixContext>
+      <main className="min-h-screen p-6 font-sans text-gray-100 mt-20">
+        <div className="max-w-5xl mx-auto">
+          {/* Page Header */}
+          <header className="mb-10 mt-4 flex items-center justify-between">
+            <h1 className="text-3xl font-extrabold text-white tracking-tight drop-shadow-md">
+              ShieldStat Dashboard
+            </h1>
+            <p className="text-gray-400 mt-2 flex items-center gap-2">
+              Target Scope:
+              <span className="font-mono text-sm font-medium text-blue-300 bg-blue-500/10 border border-blue-500/20 px-2 py-1 rounded backdrop-blur-sm">
+                {targetName}
+              </span>
+            </p>
+          </header>
 
-export default page
+          {/* 1. Executive Summary */}
+          <ExecutiveSummary
+            totalAssets={data.length}
+            riskyAssets={riskyAssetsCount}
+            isLoading={loading}
+          />
+
+          {/* 2. Asset List */}
+          <div className="space-y-4">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold text-white/90">
+                Subdomains Detected
+              </h2>
+              {!loading && (
+                <span className="bg-white/10 border border-white/10 text-gray-200 text-xs px-3 py-1 rounded-full backdrop-blur-sm">
+                  {data.length} Results
+                </span>
+              )}
+            </div>
+
+            {loading ? (
+              <div className="text-center py-20">
+                <div className="text-blue-400 animate-pulse font-medium">
+                  Scanning network...
+                </div>
+              </div>
+            ) : (
+              data.map((item, index) => (
+                <SimpleAssetCard key={index} item={item} />
+              ))
+            )}
+          </div>
+        </div>
+      </main>
+    </MatrixContext>
+  );
+}
