@@ -40,7 +40,7 @@ export default function Navbar() {
           />
         </div>
         <span className="text-lg font-bold tracking-wide text-white group-hover:text-gray-200 transition-colors">
-          Cyberguard
+          ShieldStat
         </span>
       </Link>
 
