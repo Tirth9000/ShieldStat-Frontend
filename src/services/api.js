@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // API Configuration & Calls
 const apiClient = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: 'https://cyberguard-backend-nstc.onrender.com',
   headers: {
     'Content-Type': 'application/json',
   },
