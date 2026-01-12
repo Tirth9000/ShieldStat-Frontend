@@ -111,7 +111,7 @@ export default function Dashboard() {
 
   return (
     <MatrixContext>
-      <main className="min-h-screen p-6 font-sans text-gray-100 mt-20">
+      <main className="min-h-screen p-6 font-sans text-gray-100">
         <div className="max-w-5xl mx-auto">
           {/* Page Header */}
           <header className="mb-10 mt-4 flex items-center justify-between">
