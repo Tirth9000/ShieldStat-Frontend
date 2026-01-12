@@ -51,6 +51,13 @@ export const api = {
     return response.data;
   },
 
+  downloadAssessmentPDF: async(_id )=> {
+    const response = await apiClient.get(`/api/assess/${_id}/download`, {
+      responseType: 'blob',
+    });
+
+    return response.data;
+  }
 };
 
 export default api;
