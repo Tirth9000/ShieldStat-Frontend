@@ -10,7 +10,7 @@ export default function NewScan() {
 
   return (
     <>
-      <main className="max-w-4xl mx-auto mt-16 px-6 backdrop-blur-none">
+      <main className="max-w-4xl mx-auto px-6 backdrop-blur-none">
         <h1 className="text-4xl font-bold text-center">
           New Reconnaissance Mission
         </h1>
