@@ -1,7 +1,7 @@
 export default function ScanModeCard({ title, desc, active }) {
   return (
     <div
-      className={`p-6 rounded-xl border transition
+      className={`p-6 rounded-xl border transition backdrop-blur-none
         ${active
           ? "border-blue-500 shadow-[0_0_25px_rgba(59,130,246,0.4)]"
           : "border-white/10 hover:border-white/20"
