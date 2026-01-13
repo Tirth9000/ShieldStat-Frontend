@@ -99,7 +99,7 @@ const SecurityAssessment = () => {
   const selectedOptionIndex = answers[currentQuestion._id];
 
   return (
-      <main className="min-h-screen bg-[#0f1115] flex flex-col items-center justify-center p-6 text-white">
+      <main className="min-h-screen bg-[#0f1115] flex flex-col items-center justify-center p-6 text-white w-screen">
         
         {/* Warning Modal */}
         {showWarning && (

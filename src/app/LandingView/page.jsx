@@ -6,7 +6,7 @@ import { MatrixContext } from "@/context/MatrixContext";
 export default function LandingPage() {
   return (
     <MatrixContext>
-      <main className="flex-grow flex flex-col items-center justify-center w-full min-h-screen py-20">
+      <main className="flex-grow flex flex-col items-center justify-center w-screen min-h-screen py-20">
         
         <div className="flex flex-col items-center justify-center text-center px-4 w-full max-w-5xl">
           <div className="relative">
