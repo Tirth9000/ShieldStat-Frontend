@@ -18,9 +18,11 @@ export default function RootLayout({ children }) {
         className={`${inter.className} bg-black text-white antialiased no-scrollbar`}
       >
         <AuthProvider>
-          <Navbar />
-          <Sidebar />
-          {children}
+            <div className="flex">
+                <Navbar />
+                <Sidebar />
+                {children}
+            </div>
         </AuthProvider>
       </body>
     </html>

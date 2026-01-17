@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import UserProfileDropdown from "./UserProfileDropdown";
 import { BsArrowBarLeft } from "react-icons/bs";
@@ -21,6 +21,12 @@ export default function Sidebar() {
         { name: "Reports", icon: TbReportSearch },
         { name: "Assessments", icon: TbClipboardCheck }
     ];
+
+    useEffect(() => {
+        if(isOpen){
+            setIsOpen(false);
+        }
+    }, [user])
 
     const isActive = (path) => pathname === path;
 
@@ -40,7 +46,7 @@ export default function Sidebar() {
     return (
         <>
             {/* side panel */}
-            <div className="bg-[#0d0d1a]/80 backdrop-blur-xl shadow-lg flex flex-col items-center justify-between py-5 fixed top-0 left-0 h-screen w-16 p-3 border-r border-gray-800 z-60">
+            <div className="bg-[#0d0d1a]/80 backdrop-blur-xl shadow-lg flex flex-col items-center justify-between py-5 top-0 left-0 sticky h-screen w-16 p-3 border-r border-gray-800 z-60">
 
                 <div className="flex flex-col gap-8">
 
